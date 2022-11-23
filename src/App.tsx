@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Chat from "./components/Chat/Chat";
 import NewMessForm from "./components/NewMessForm/NewMessForm";
+import Navbar from "./components/Navbar/Navbar";
 import { MessagesType } from "./types";
 import axios from "axios";
+import {Container} from "@mui/material";
 
 const url = 'http://146.185.154.90:8000/messages';
 
@@ -54,7 +56,7 @@ function App() {
     }
   }, [newMessages]);
 
-  const onChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChanges = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
     setMessage(prev => ({
       ...prev,
@@ -73,8 +75,11 @@ function App() {
 
     return (
       <div className="App">
-        <NewMessForm onChanges={onChanges} onAdd={addMessage}/>
-        <Chat messages={messages}/>
+        <Navbar/>
+        <Container maxWidth="sm">
+          <NewMessForm onChanges={onChanges} onAdd={addMessage}/>
+          <Chat messages={messages}/>
+        </Container>
       </div>
     );
   }
